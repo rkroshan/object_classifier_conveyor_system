@@ -72,6 +72,10 @@ public:
 
   // The joint that controls the movement of the belt:
   gazebo::physics::JointPtr belt_joint_;
+  // The joint that controls the movement of the belt:
+  gazebo::physics::JointPtr belt_left_joint_;
+  // The joint that controls the movement of the belt:
+  gazebo::physics::JointPtr belt_right_joint_;
 
   // Additional parametres:
   double belt_velocity_;
@@ -115,8 +119,10 @@ void ROS2ConveyorBeltPlugin::Load(gazebo::physics::ModelPtr _model, sdf::Element
 
   // OBTAIN -> BELT JOINT:
   impl_->belt_joint_ = _model->GetJoint("belt_joint");
+  impl_->belt_left_joint_ = _model->GetJoint("belt_left_joint");
+  impl_->belt_right_joint_ = _model->GetJoint("belt_right_joint");
 
-  if (!impl_->belt_joint_) {
+  if ((!impl_->belt_joint_)&&(!impl_->belt_left_joint_)&&(!impl_->belt_right_joint_)) {
     RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Belt joint not found, unable to start conveyor plugin.");
     return;
   }
@@ -154,11 +160,15 @@ void ROS2ConveyorBeltPlugin::Load(gazebo::physics::ModelPtr _model, sdf::Element
 void ROS2ConveyorBeltPluginPrivate::OnUpdate()
 {
   belt_joint_->SetVelocity(0, belt_velocity_);
+  belt_left_joint_->SetVelocity(0, belt_velocity_);
+  belt_right_joint_->SetVelocity(0, belt_velocity_);
 
   double belt_position = belt_joint_->Position(0);
 
   if (belt_position >= limit_){
     belt_joint_->SetPosition(0, 0);
+    belt_left_joint_->SetPosition(0, 0);
+    belt_right_joint_->SetPosition(0, 0);
   }
 
   // Publish status at rate
