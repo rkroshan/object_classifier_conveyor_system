@@ -1,0 +1,4 @@
+bool left_belt_on   # turn on left belt changer for ones
+bool right_belt_on  # turn on right belt changer for ones
+---
+bool success    # RESULT: SUCCESS message.

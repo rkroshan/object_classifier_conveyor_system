@@ -155,6 +155,174 @@
             </link>
         </model>
 
+        <model name="belt_changer">
+            <static>true</static>
+            <link name="belt_changer_left">
+            <pose>0.5 0 0 0 0 0</pose>
+                <inertial>
+                    <mass>100.0</mass>
+                    <inertia>                        <!-- inertias are tricky to compute -->
+                        <!-- http://gazebosim.org/tutorials?tut=inertia&cat=build_robot -->
+                        <ixx>0</ixx>                        <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
+                        <ixy>0.0</ixy>                        <!-- for a box: ixy = 0 -->
+                        <ixz>0.0</ixz>                        <!-- for a box: ixz = 0 -->
+                        <iyy>0</iyy>                        <!-- for a box: iyy = 0.083 * mass * (x*x + z*z) -->
+                        <iyz>0.0</iyz>                        <!-- for a box: iyz = 0 -->
+                        <izz>0</izz>                        <!-- for a box: izz = 0.083 * mass * (x*x + y*y) -->
+                    </inertia>
+                </inertial>
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>0.5 0.5 1.2</size>
+                        </box>
+                    </geometry>
+                </collision>
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>0.5 0.5 1.2</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <ambient>0 0 0 0</ambient>
+                        <diffuse>0 1 1 1</diffuse>
+                        <specular>0.3 0.3 0.2 64</specular>
+                        <emissive>0.1 0 0.1 1</emissive>
+                    </material>
+                </visual>
+            </link>
+
+            <link name="belt_changer_right">
+            <pose>-0.5 1 0 0 0 0</pose>
+                <inertial>
+                    <mass>100.0</mass>
+                    <inertia>                        <!-- inertias are tricky to compute -->
+                        <!-- http://gazebosim.org/tutorials?tut=inertia&cat=build_robot -->
+                        <ixx>0</ixx>                        <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
+                        <ixy>0.0</ixy>                        <!-- for a box: ixy = 0 -->
+                        <ixz>0.0</ixz>                        <!-- for a box: ixz = 0 -->
+                        <iyy>0</iyy>                        <!-- for a box: iyy = 0.083 * mass * (x*x + z*z) -->
+                        <iyz>0.0</iyz>                        <!-- for a box: iyz = 0 -->
+                        <izz>0</izz>                        <!-- for a box: izz = 0.083 * mass * (x*x + y*y) -->
+                    </inertia>
+                </inertial>
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>0.5 0.5 1.2</size>
+                        </box>
+                    </geometry>
+                </collision>
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>0.5 0.5 1.2</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <ambient>0 0 0 0</ambient>
+                        <diffuse>0 1 1 1</diffuse>
+                        <specular>0.3 0.3 0.2 64</specular>
+                        <emissive>0.1 0 0.1 1</emissive>
+                    </material>
+                </visual>
+            </link>
+        </model>
+
+        <model name="belt_changer_moving">
+
+            <allow_auto_disable>0</allow_auto_disable>
+            <static>false</static>
+
+            <link name="belt_changer_left_moving">
+            <pose>0.5 0 0.71 0 0 0</pose>
+                <inertial>
+                    <mass>100.0</mass>
+                    <inertia>
+                        <ixx>0.0</ixx>
+                        <ixy>0.0</ixy>
+                        <ixz>0.0</ixz>
+                        <iyy>0.0</iyy>
+                        <iyz>0.0</iyz>
+                        <izz>0.0</izz>
+                    </inertia>
+                </inertial>
+                <collision name="belt_collision">
+                    <geometry>
+                        <box>
+                            <size>0.5 0.2 0.2</size>
+                        </box>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode>
+                                <mu>100.0</mu>
+                                <mu2>100.0</mu2>
+                            </ode>
+                            <torsional>
+                                <coefficient>1000.0</coefficient>
+                                <patch_radius>0.1</patch_radius>
+                            </torsional>
+                        </friction>
+                    </surface>
+                </collision>
+
+                <visual name="belt_left_visual">
+                    <geometry>
+                        <box>
+                            <size>0.5 0.2 0.2</size>
+                        </box>
+                    </geometry>
+                </visual>
+
+            </link>
+
+            <link name="belt_changer_right_moving">
+            <pose>-0.5 1 0.71 0 0 0</pose>
+                <inertial>
+                    <mass>100.0</mass>
+                    <inertia>
+                        <ixx>0.0</ixx>
+                        <ixy>0.0</ixy>
+                        <ixz>0.0</ixz>
+                        <iyy>0.0</iyy>
+                        <iyz>0.0</iyz>
+                        <izz>0.0</izz>
+                    </inertia>
+                </inertial>
+                <collision name="belt_collision">
+                    <geometry>
+                        <box>
+                            <size>0.5 0.2 0.2</size>
+                        </box>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode>
+                                <mu>100.0</mu>
+                                <mu2>100.0</mu2>
+                            </ode>
+                            <torsional>
+                                <coefficient>1000.0</coefficient>
+                                <patch_radius>0.1</patch_radius>
+                            </torsional>
+                        </friction>
+                    </surface>
+                </collision>
+
+                <visual name="belt_right_visual">
+                    <geometry>
+                        <box>
+                            <size>0.5 0.2 0.2</size>
+                        </box>
+                    </geometry>
+                </visual>
+
+            </link>
+
+        </model>
+
         <model name="conveyorbelt_moving">
 
             <allow_auto_disable>0</allow_auto_disable>
@@ -291,6 +459,30 @@
 
         </model>
 
+        <joint name="belt_changer_left_joint" type="prismatic">
+            <parent>belt_changer::belt_changer_left</parent>
+            <child>belt_changer_moving::belt_changer_left_moving</child>
+            <axis>
+                <xyz>-1 0 0</xyz>
+                <limit>
+                    <lower>0.0</lower>
+                    <upper>0.35</upper>
+                </limit>
+            </axis>
+        </joint>
+
+        <joint name="belt_changer_right_joint" type="prismatic">
+            <parent>belt_changer::belt_changer_right</parent>
+            <child>belt_changer_moving::belt_changer_right_moving</child>
+            <axis>
+                <xyz>1 0 0</xyz>
+                <limit>
+                    <lower>0.0</lower>
+                    <upper>0.35</upper>
+                </limit>
+            </axis>
+        </joint>
+
         <joint name="belt_joint" type="prismatic">
             <parent>conveyorbelt_fixed::belt_visual</parent>
             <child>conveyorbelt_moving::belt_moving</child>
@@ -332,6 +524,7 @@
                 <namespace></namespace>
             </ros>
             <max_velocity>1.0</max_velocity>
+            <belt_changer_velocity>0.3</belt_changer_velocity>
             <publish_rate>1000</publish_rate>
         </plugin>
 

@@ -1,3 +1,4 @@
 float64 power   # Desired conveyor bolt POWER.
+float64 belt_changer_velocity  #Desired belt changer velocity
 ---
 bool success    # RESULT: SUCCESS message.

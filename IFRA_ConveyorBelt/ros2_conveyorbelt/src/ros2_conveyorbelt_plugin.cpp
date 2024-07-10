@@ -56,6 +56,7 @@
 #include "ros2_conveyorbelt/ros2_conveyorbelt_plugin.hpp"     // Header file.
 
 #include <conveyorbelt_msgs/srv/conveyor_belt_control.hpp>    // ROS2 Service.
+#include <conveyorbelt_msgs/srv/conveyor_belt_changer.hpp>    // ROS2 Service.
 #include <conveyorbelt_msgs/msg/conveyor_belt_state.hpp>      // ROS2 Message.
 
 #include <memory>
@@ -76,12 +77,18 @@ public:
   gazebo::physics::JointPtr belt_left_joint_;
   // The joint that controls the movement of the belt:
   gazebo::physics::JointPtr belt_right_joint_;
+  // The joint that controls the movement of the belt:
+  gazebo::physics::JointPtr belt_changer_right_joint_;
+  // The joint that controls the movement of the belt:
+  gazebo::physics::JointPtr belt_changer_left_joint_;
 
   // Additional parametres:
   double belt_velocity_;
   double max_velocity_;
+  double belt_changer_velocity_;
   double power_;
   double limit_;
+  double belt_changer_limit_;
   
   // PUBLISH ConveyorBelt status:
   void PublishStatus();                                                                     // Method to publish status.
@@ -93,6 +100,12 @@ public:
     conveyorbelt_msgs::srv::ConveyorBeltControl::Request::SharedPtr,    
     conveyorbelt_msgs::srv::ConveyorBeltControl::Response::SharedPtr);                      // Method to execute service.
   rclcpp::Service<conveyorbelt_msgs::srv::ConveyorBeltControl>::SharedPtr enable_service_;  // ROS2 Service.
+
+  // SET Conveyor Power:
+  void EnableBeltChanger(
+    conveyorbelt_msgs::srv::ConveyorBeltChanger::Request::SharedPtr,    
+    conveyorbelt_msgs::srv::ConveyorBeltChanger::Response::SharedPtr);                      // Method to execute service.
+  rclcpp::Service<conveyorbelt_msgs::srv::ConveyorBeltChanger>::SharedPtr enable_belt_changer_service_;  // ROS2 Service.
 
   // WORLD UPDATE event:
   void OnUpdate();
@@ -121,17 +134,23 @@ void ROS2ConveyorBeltPlugin::Load(gazebo::physics::ModelPtr _model, sdf::Element
   impl_->belt_joint_ = _model->GetJoint("belt_joint");
   impl_->belt_left_joint_ = _model->GetJoint("belt_left_joint");
   impl_->belt_right_joint_ = _model->GetJoint("belt_right_joint");
+  impl_->belt_changer_right_joint_ = _model->GetJoint("belt_changer_right_joint");
+  impl_->belt_changer_left_joint_ = _model->GetJoint("belt_changer_left_joint");
 
-  if ((!impl_->belt_joint_)&&(!impl_->belt_left_joint_)&&(!impl_->belt_right_joint_)) {
+  // belt changers
+
+  if ((!impl_->belt_joint_)&&(!impl_->belt_left_joint_)&&(!impl_->belt_right_joint_)&&(!impl_->belt_changer_left_joint_)&&(!impl_->belt_changer_right_joint_)) {
     RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Belt joint not found, unable to start conveyor plugin.");
     return;
   }
 
   // Set velocity (m/s)
   impl_->max_velocity_ = _sdf->GetElement("max_velocity")->Get<double>();
+  impl_->belt_changer_velocity_ = _sdf->GetElement("belt_changer_velocity")->Get<double>();
 
   // Set limit (m)
   impl_->limit_ = impl_->belt_joint_->UpperLimit();
+  impl_->belt_changer_limit_ = impl_->belt_changer_left_joint_->UpperLimit();
 
   // Create status publisher
   impl_->status_pub_ = impl_->ros_node_->create_publisher<conveyorbelt_msgs::msg::ConveyorBeltState>("CONVEYORSTATE", 10);
@@ -143,6 +162,12 @@ void ROS2ConveyorBeltPlugin::Load(gazebo::physics::ModelPtr _model, sdf::Element
     impl_->ros_node_->create_service<conveyorbelt_msgs::srv::ConveyorBeltControl>(
     "CONVEYORPOWER", std::bind(
       &ROS2ConveyorBeltPluginPrivate::SetConveyorPower, impl_.get(),
+      std::placeholders::_1, std::placeholders::_2));
+
+  impl_->enable_belt_changer_service_ =
+    impl_->ros_node_->create_service<conveyorbelt_msgs::srv::ConveyorBeltChanger>(
+    "ENABLEBELT", std::bind(
+      &ROS2ConveyorBeltPluginPrivate::EnableBeltChanger, impl_.get(),
       std::placeholders::_1, std::placeholders::_2));
 
   double publish_rate = _sdf->GetElement("publish_rate")->Get<double>();
@@ -162,13 +187,27 @@ void ROS2ConveyorBeltPluginPrivate::OnUpdate()
   belt_joint_->SetVelocity(0, belt_velocity_);
   belt_left_joint_->SetVelocity(0, belt_velocity_);
   belt_right_joint_->SetVelocity(0, belt_velocity_);
+  // belt_changer_left_joint_->SetVelocity(0, belt_changer_velocity_);
+  // belt_changer_right_joint_->SetVelocity(0, belt_changer_velocity_);
 
   double belt_position = belt_joint_->Position(0);
+  double belt_left_changer_position = belt_changer_left_joint_->Position(0);
+  double belt_right_changer_position = belt_changer_right_joint_->Position(0);
 
   if (belt_position >= limit_){
     belt_joint_->SetPosition(0, 0);
     belt_left_joint_->SetPosition(0, 0);
     belt_right_joint_->SetPosition(0, 0);
+  }
+
+  if (belt_left_changer_position >= belt_changer_limit_){
+    belt_changer_left_joint_->SetPosition(0, 0);
+    belt_changer_left_joint_->SetVelocity(0, 0);
+  }
+
+  if (belt_right_changer_position >= belt_changer_limit_){
+    belt_changer_right_joint_->SetPosition(0, 0);
+    belt_changer_right_joint_->SetVelocity(0, 0);
   }
 
   // Publish status at rate
@@ -187,11 +226,27 @@ void ROS2ConveyorBeltPluginPrivate::SetConveyorPower(
   res->success = false;
   if (req->power >= 0 && req->power <= 100) {
     power_ = req->power;
+    belt_changer_velocity_ = req->belt_changer_velocity;
     belt_velocity_ = max_velocity_ * (power_ / 100);
     res->success = true;
   }
   else{
     RCLCPP_WARN(ros_node_->get_logger(), "Conveyor power must be between 0 and 100.");
+  }
+}
+
+void ROS2ConveyorBeltPluginPrivate::EnableBeltChanger(
+  conveyorbelt_msgs::srv::ConveyorBeltChanger::Request::SharedPtr req,
+  conveyorbelt_msgs::srv::ConveyorBeltChanger::Response::SharedPtr res)
+{
+  res->success = false;
+  if (req->left_belt_on) {
+    belt_changer_left_joint_->SetVelocity(0, belt_changer_velocity_);
+    res->success = true;
+  }
+  else if (req->right_belt_on) {
+    belt_changer_right_joint_->SetVelocity(0, belt_changer_velocity_);
+    res->success = true;
   }
 }
 
