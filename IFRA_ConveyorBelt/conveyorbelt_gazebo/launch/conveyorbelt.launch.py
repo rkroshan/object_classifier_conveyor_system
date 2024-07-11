@@ -82,16 +82,33 @@ def generate_launch_description():
              )
     
     #spawn bin
-    # bin_path = PathJoinSubstitution(
-    #     [FindPackageShare('conveyorbelt_gazebo'), "urdf", "bin.urdf"]
-    # )
-    # gazebo_spawn_bin = Node(
-    #     package="gazebo_ros",
-    #     executable="spawn_entity.py",
-    #     name="spawn_ur",
-    #     arguments=["-entity", "bin", "-file", bin_path, "-x", "-0.8", "-y", "-0.8","-z", "0.05"],
-    #     output="screen",
-    # )
+    bin_path = PathJoinSubstitution(
+        [FindPackageShare('conveyorbelt_gazebo'), "urdf", "bin.urdf"]
+    )
+    #spawn bin for left belt
+    gazebo_left_spawn_bin = Node(
+        package="gazebo_ros",
+        executable="spawn_entity.py",
+        name="spawn_ur",
+        arguments=["-entity", "left_bin", "-file", bin_path, "-x", "-2.46", "-y", "0","-z", "0.05"],
+        output="screen",
+    )
+    #spawn bin for left belt
+    gazebo_right_spawn_bin = Node(
+        package="gazebo_ros",
+        executable="spawn_entity.py",
+        name="spawn_ur",
+        arguments=["-entity", "right_bin", "-file", bin_path, "-x", "2.46", "-y", "1","-z", "0.05"],
+        output="screen",
+    )
+    #spawn bin for left belt
+    gazebo_center_spawn_bin = Node(
+        package="gazebo_ros",
+        executable="spawn_entity.py",
+        name="spawn_ur",
+        arguments=["-entity", "center_bin", "-file", bin_path, "-x", "0", "-y", "2.22","-z", "0.05"],
+        output="screen",
+    )
 
     #spawn bin
     camera_path = PathJoinSubstitution(
@@ -109,6 +126,8 @@ def generate_launch_description():
     # ***** RETURN LAUNCH DESCRIPTION ***** #
     return LaunchDescription([
         gazebo,
-        # gazebo_spawn_bin,
         gazebo_spawn_camera,
+        gazebo_center_spawn_bin,
+        gazebo_left_spawn_bin,
+        gazebo_right_spawn_bin,
     ])
