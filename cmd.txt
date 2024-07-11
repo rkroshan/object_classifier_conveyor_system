@@ -1,4 +1,4 @@
 ros2 service call /ENABLEBELT conveyorbelt_msgs/srv/ConveyorBeltChanger "{left_belt_on : 1, right_belt_on : 0 }"
 ros2 service call /CONVEYORPOWER conveyorbelt_msgs/srv/ConveyorBeltControl "{power: 2, belt_changer_velocity: 1}"
-
+ros2 run ros2_conveyorbelt SpawnObject.py --package "conveyorbelt_gazebo" --urdf "box.urdf" --name "box4" --x 0.0 --y -1.8 --z 0.76
 ros2 launch conveyorbelt_gazebo conveyorbelt.launch.py
