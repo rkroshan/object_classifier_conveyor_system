@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="aruco_marker">
+    <model name="aruco_marker_tag">
+      <link name="tag">
+        <inertial>
+          <!-- <pose>0 0 0 0 0 0</pose> -->
+          <mass>0.001</mass>
+          <inertia>
+            <ixx>3.7499999999999997e-06</ixx>
+            <ixy>0.0</ixy>
+            <ixz>0.0</ixz>
+            <iyy>1.8750008333333333e-06</iyy>
+            <iyz>0.0</iyz>
+            <izz>1.8750008333333333e-06</izz>
+          </inertia>
+        </inertial>
+        <visual name="front_visual">
+          <pose>0 0 0.076 0 1.57 0</pose>
+          <geometry>
+            <box>
+              <size>0.0001 0.15 0.15</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://aruco_marker/materials/scripts</uri>
+              <uri>model://aruco_marker/materials/textures</uri>
+              <name>Marker01</name>
+            </script>
+          </material>
+        </visual>
+        <!-- Hide the marker from the back -->
+        <visual name="rear_visual">
+          <pose>-0.00005 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.0001 0.15 0.15</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name="collision">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.0001 0.15 0.15</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="aruco_marker_box">
+      <link name="ar_box">
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <mass>0.1</mass>
+          <inertia>            <!-- inertias are tricky to compute -->
+            <!-- http://gazebosim.org/tutorials?tut=inertia&cat=build_robot -->
+            <ixx>0.000015</ixx>            <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
+            <ixy>0.0</ixy>            <!-- for a box: ixy = 0 -->
+            <ixz>0.0</ixz>            <!-- for a box: ixz = 0 -->
+            <iyy>0.000015</iyy>            <!-- for a box: iyy = 0.083 * mass * (x*x + z*z) -->
+            <iyz>0.0</iyz>            <!-- for a box: iyz = 0 -->
+            <izz>0.000015</izz>            <!-- for a box: izz = 0.083 * mass * (x*x + y*y) -->
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.15 0.15 0.15</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.9</mu>
+                <mu2>0.9</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.15 0.15 0.15</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+            <specular>0.4 0.4 0.4 64</specular>
+            <emissive>0.1 0 0.1 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <joint name="ar_tag" type="revolute">
+      <parent>aruco_marker_box::ar_box</parent>
+      <child>aruco_marker_tag::tag</child>
+      <axis>
+        <xyz>0 0 0</xyz>
+        <limit>
+          <upper>0</upper>
+          <lower>0</lower>
+        </limit>
+      </axis>
+    </joint>
+  </model>
+</sdf>

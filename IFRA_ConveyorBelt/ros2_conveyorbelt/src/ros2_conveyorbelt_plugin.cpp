@@ -244,7 +244,7 @@ void ROS2ConveyorBeltPluginPrivate::EnableBeltChanger(
     belt_changer_left_joint_->SetVelocity(0, belt_changer_velocity_);
     res->success = true;
   }
-  else if (req->right_belt_on) {
+  if (req->right_belt_on) {
     belt_changer_right_joint_->SetVelocity(0, belt_changer_velocity_);
     res->success = true;
   }

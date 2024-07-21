@@ -466,7 +466,7 @@
                 <xyz>-1 0 0</xyz>
                 <limit>
                     <lower>0.0</lower>
-                    <upper>0.35</upper>
+                    <upper>0.4</upper>
                 </limit>
             </axis>
         </joint>
@@ -478,7 +478,7 @@
                 <xyz>1 0 0</xyz>
                 <limit>
                     <lower>0.0</lower>
-                    <upper>0.35</upper>
+                    <upper>0.4</upper>
                 </limit>
             </axis>
         </joint>
@@ -490,7 +490,7 @@
                 <xyz>0 1 0</xyz>
                 <limit>
                     <lower>0.0</lower>
-                    <upper>0.01</upper>
+                    <upper>0.02</upper>
                 </limit>
             </axis>
         </joint>
@@ -499,7 +499,7 @@
             <parent>conveyorbelt_fixed::belt_left_visual</parent>
             <child>conveyorbelt_moving::belt_left_moving</child>
             <axis>
-                <xyz>1 0 0</xyz>
+                <xyz>-1 0 0</xyz>
                 <limit>
                     <lower>0.0</lower>
                     <upper>0.01</upper>
