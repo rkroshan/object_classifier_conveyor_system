@@ -2,6 +2,6 @@ ros2 service call /ENABLEBELT conveyorbelt_msgs/srv/ConveyorBeltChanger "{left_b
 ros2 service call /CONVEYORPOWER conveyorbelt_msgs/srv/ConveyorBeltControl "{power: 2, belt_changer_velocity: 1}"
 ros2 run ros2_conveyorbelt SpawnObject.py --package "conveyorbelt_gazebo" --urdf "box.urdf" --name "box4" --x 0.0 --y -1.8 --z 0.76
 ros2 launch conveyorbelt_gazebo conveyorbelt.launch.py
-ros2 run gazebo_ros spawn_entity.py -file "/home/rkroshan/dev_ws/src/IFRA_ConveyorBelt/conveyorbelt_gazebo/models/aruco_marker/model_green.sdf" -entity "markerg" -x 3 -y 3 -z 3
-ros2 run gazebo_ros spawn_entity.py -file "/home/rkroshan/dev_ws/src/IFRA_ConveyorBelt/conveyorbelt_gazebo/models/aruco_marker/model_red.sdf" -entity "markera" -x 3 -y 3 -z 3
-ros2 run gazebo_ros spawn_entity.py -file "/home/rkroshan/dev_ws/src/IFRA_ConveyorBelt/conveyorbelt_gazebo/models/aruco_marker/model_blue.sdf" -entity "markerb" -x 3 -y 3 -z 3
+ros2 run gazebo_ros spawn_entity.py -file "/home/rkroshan/dev_ws/src/IFRA_ConveyorBelt/conveyorbelt_gazebo/models/aruco_marker/model_green.sdf" -entity "markerg" -x 0 -y -1.8 -z 0.76
+ros2 run gazebo_ros spawn_entity.py -file "/home/rkroshan/dev_ws/src/IFRA_ConveyorBelt/conveyorbelt_gazebo/models/aruco_marker/model_red.sdf" -entity "markera" -x 0 -y -1.8 -z 0.76
+ros2 run gazebo_ros spawn_entity.py -file "/home/rkroshan/dev_ws/src/IFRA_ConveyorBelt/conveyorbelt_gazebo/models/aruco_marker/model_blue.sdf" -entity "markerb" -x 0 -y -1.8 -z 0.76

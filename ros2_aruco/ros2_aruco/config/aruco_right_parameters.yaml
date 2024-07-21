@@ -1,4 +1,4 @@
-/aruco_node_right:
+/aruco_node_right/aruco_node:
   ros__parameters:
     marker_size: 0.15
     aruco_dictionary_id: DICT_5X5_250

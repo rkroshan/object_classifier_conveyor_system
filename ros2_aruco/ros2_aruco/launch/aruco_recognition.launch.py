@@ -20,24 +20,24 @@ def generate_launch_description():
     aruco_node_left = Node(
         package='ros2_aruco',
         executable='aruco_node',
+        namespace='aruco_node_left',
         parameters=[aruco_params_left],
-        remappings=[
-            ('/aruco_markers', '/aruco_markers_left'),
-            ('/aruco_poses', '/aruco_poses_left'),
-        ]
     )
 
     aruco_node_right = Node(
         package='ros2_aruco',
         executable='aruco_node',
+        namespace='aruco_node_right',
         parameters=[aruco_params_right],
-        remappings=[
-            ('/aruco_markers', '/aruco_markers_right'),
-            ('/aruco_poses', '/aruco_poses_right'),
-        ]
+    )
+
+    belt_manipulator_node = Node(
+        package='ros2_aruco',
+        executable='BeltChanger',
     )
 
     return LaunchDescription([
         aruco_node_left,
-        aruco_node_right
+        aruco_node_right,
+        belt_manipulator_node
     ])
