@@ -122,6 +122,12 @@ def generate_launch_description():
         output="screen",
     )
 
+    # DECLARE ros2_aruco LAUNCH file:
+    ros2_aruco_detection = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([os.path.join(
+                    get_package_share_directory('ros2_aruco'), 'launch'), '/aruco_recognition.launch.py'])
+             )
+
     
     # ***** RETURN LAUNCH DESCRIPTION ***** #
     return LaunchDescription([
@@ -130,4 +136,5 @@ def generate_launch_description():
         gazebo_center_spawn_bin,
         gazebo_left_spawn_bin,
         gazebo_right_spawn_bin,
+        ros2_aruco_detection,
     ])
