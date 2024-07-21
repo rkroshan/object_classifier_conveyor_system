@@ -1,0 +1,6 @@
+/aruco_node_right:
+  ros__parameters:
+    marker_size: 0.15
+    aruco_dictionary_id: DICT_5X5_250
+    image_topic: /right_belt_camera/image_raw
+    camera_info_topic: /right_belt_camera/camera_info
