@@ -73,12 +73,6 @@
                             <size>0.5 4 1.2</size>
                         </box>
                     </geometry>
-                    <material>
-                        <ambient>0 0 0 0</ambient>
-                        <diffuse>0 0 0 1</diffuse>
-                        <specular>0.2 0.2 0.2 64</specular>
-                        <emissive>0.1 0 0.1 1</emissive>
-                    </material>
                 </visual>
             </link>
 
@@ -109,12 +103,6 @@
                             <size>0.5 2 1.2</size>
                         </box>
                     </geometry>
-                    <material>
-                        <ambient>0 0 0 0</ambient>
-                        <diffuse>0 0 0 1</diffuse>
-                        <specular>0.2 0.2 0.2 64</specular>
-                        <emissive>0.1 0 0.1 1</emissive>
-                    </material>
                 </visual>
             </link>
 
@@ -145,12 +133,6 @@
                             <size>0.5 2 1.2</size>
                         </box>
                     </geometry>
-                    <material>
-                        <ambient>0 0 0 0</ambient>
-                        <diffuse>0 0 0 1</diffuse>
-                        <specular>0.2 0.2 0.2 64</specular>
-                        <emissive>0.1 0 0.1 1</emissive>
-                    </material>
                 </visual>
             </link>
         </model>
@@ -361,13 +343,13 @@
                     </surface>
                 </collision>
 
-                <visual name="belt_visual">
+                <!-- <visual name="belt_visual">
                     <geometry>
                         <box>
                             <size>0.425 4 0.001</size>
                         </box>
                     </geometry>
-                </visual>
+                </visual> -->
 
             </link>
 
@@ -404,13 +386,13 @@
                     </surface>
                 </collision>
 
-                <visual name="belt_left_visual">
+                <!-- <visual name="belt_left_visual">
                     <geometry>
                         <box>
                             <size>0.425 2 0.001</size>
                         </box>
                     </geometry>
-                </visual>
+                </visual> -->
 
             </link>
 
@@ -447,13 +429,13 @@
                     </surface>
                 </collision>
 
-                <visual name="belt_right_visual">
+                <!-- <visual name="belt_right_visual">
                     <geometry>
                         <box>
                             <size>0.425 2 0.001</size>
                         </box>
                     </geometry>
-                </visual>
+                </visual> -->
 
             </link>
 
