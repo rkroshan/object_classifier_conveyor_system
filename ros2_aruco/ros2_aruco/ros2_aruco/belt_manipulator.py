@@ -28,7 +28,7 @@ class BeltChanger(Node):
     
     def belt_change_callback(self, msg):
         # self.get_logger().info('%s: %d' % (self.node_name, msg.marker_ids[0]))
-        self.get_logger().info('%s: %f' % (self.node_name, msg.poses[0].position.x))
+        # self.get_logger().info('%s: %f' % (self.node_name, msg.poses[0].position.x))
         if((self.marker_id == msg.marker_ids[0]) and ((msg.poses[0].position.x * 100.0) <= 1.0) and ((msg.poses[0].position.x * 100.0) >= 0.0 )):
             # call the service to push the box
             self.future = self.cli.call_async(self.req)

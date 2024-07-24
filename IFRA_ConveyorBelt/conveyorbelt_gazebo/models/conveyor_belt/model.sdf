@@ -236,7 +236,7 @@
             <static>false</static>
 
             <link name="belt_changer_left_moving">
-            <pose>0.55 0 0.71 0 0 0</pose>
+            <pose>0.55 0 0.72 0 0 0</pose>
                 <inertial>
                     <mass>100.0</mass>
                     <inertia>
@@ -279,7 +279,7 @@
             </link>
 
             <link name="belt_changer_right_moving">
-            <pose>-0.55 1 0.71 0 0 0</pose>
+            <pose>-0.55 1 0.72 0 0 0</pose>
                 <inertial>
                     <mass>100.0</mass>
                     <inertia>
@@ -329,7 +329,7 @@
             <static>false</static>
 
             <link name="belt_moving">
-            <pose>0 0 0.6 0 0 0.0</pose>
+            <pose>0 0 0.61 0 0 0.0</pose>
                 <inertial>
                     <mass>100.0</mass>
                     <inertia>
@@ -350,8 +350,8 @@
                     <surface>
                         <friction>
                             <ode>
-                                <mu>100.0</mu>
-                                <mu2>100.0</mu2>
+                                <mu>1.0</mu>
+                                <mu2>1.0</mu2>
                             </ode>
                             <torsional>
                                 <coefficient>1000.0</coefficient>
@@ -372,7 +372,7 @@
             </link>
 
             <link name="belt_left_moving">
-            <pose>-1.25 0 0.6 0 0 1.57</pose>
+            <pose>-1.25 0 0.61 0 0 1.57</pose>
                 <inertial>
                     <mass>100.0</mass>
                     <inertia>
@@ -393,8 +393,8 @@
                     <surface>
                         <friction>
                             <ode>
-                                <mu>100.0</mu>
-                                <mu2>100.0</mu2>
+                                <mu>1.0</mu>
+                                <mu2>1.0</mu2>
                             </ode>
                             <torsional>
                                 <coefficient>1000.0</coefficient>
@@ -415,7 +415,7 @@
             </link>
 
             <link name="belt_right_moving">
-            <pose>1.25 1 0.6 0 0 1.57</pose>
+            <pose>1.25 1 0.61 0 0 1.57</pose>
                 <inertial>
                     <mass>100.0</mass>
                     <inertia>
@@ -436,8 +436,8 @@
                     <surface>
                         <friction>
                             <ode>
-                                <mu>100.0</mu>
-                                <mu2>100.0</mu2>
+                                <mu>1.0</mu>
+                                <mu2>1.0</mu2>
                             </ode>
                             <torsional>
                                 <coefficient>1000.0</coefficient>

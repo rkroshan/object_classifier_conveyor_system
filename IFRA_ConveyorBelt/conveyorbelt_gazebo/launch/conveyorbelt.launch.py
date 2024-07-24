@@ -90,7 +90,7 @@ def generate_launch_description():
         package="gazebo_ros",
         executable="spawn_entity.py",
         name="spawn_ur",
-        arguments=["-entity", "left_bin", "-file", bin_path, "-x", "-2.46", "-y", "0","-z", "0.05"],
+        arguments=["-entity", "left_bin", "-file", bin_path, "-x", "-2.47", "-y", "0","-z", "0.05"],
         output="screen",
     )
     #spawn bin for left belt
@@ -98,7 +98,7 @@ def generate_launch_description():
         package="gazebo_ros",
         executable="spawn_entity.py",
         name="spawn_ur",
-        arguments=["-entity", "right_bin", "-file", bin_path, "-x", "2.46", "-y", "1","-z", "0.05"],
+        arguments=["-entity", "right_bin", "-file", bin_path, "-x", "2.47", "-y", "1","-z", "0.05"],
         output="screen",
     )
     #spawn bin for left belt
@@ -106,7 +106,7 @@ def generate_launch_description():
         package="gazebo_ros",
         executable="spawn_entity.py",
         name="spawn_ur",
-        arguments=["-entity", "center_bin", "-file", bin_path, "-x", "0", "-y", "2.22","-z", "0.05"],
+        arguments=["-entity", "center_bin", "-file", bin_path, "-x", "0", "-y", "2.23","-z", "0.05"],
         output="screen",
     )
 
