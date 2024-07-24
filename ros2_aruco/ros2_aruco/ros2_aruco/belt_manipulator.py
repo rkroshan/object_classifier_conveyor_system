@@ -25,22 +25,15 @@ class BeltChanger(Node):
         # initial setup for req since req is same all time
         self.req.left_belt_on = self.left_belt_on
         self.req.right_belt_on = self.right_belt_on
-
-    def send_request(self, a, b):
-        self.req.a = a
-        self.req.b = b
-        self.future = self.cli.call_async(self.req)
-        rclpy.spin_until_future_complete(self, self.future)
-        return self.future.result()
     
     def belt_change_callback(self, msg):
         # self.get_logger().info('%s: %d' % (self.node_name, msg.marker_ids[0]))
-        # self.get_logger().info('%s: %f' % (self.node_name, msg.poses[0].position.x))
-        if((self.marker_id == msg.marker_ids[0]) and ((msg.poses[0].position.x * 100.0) < 1.0) and ((msg.poses[0].position.x * 100.0) >= 0.0 )):
+        self.get_logger().info('%s: %f' % (self.node_name, msg.poses[0].position.x))
+        if((self.marker_id == msg.marker_ids[0]) and ((msg.poses[0].position.x * 100.0) <= 1.0) and ((msg.poses[0].position.x * 100.0) >= 0.0 )):
             # call the service to push the box
-            self.get_logger().info('Pushed %s: %f' % (self.node_name, msg.poses[0].position.x))
             self.future = self.cli.call_async(self.req)
-            rclpy.spin_until_future_complete(self, self.future)
+            self.get_logger().info('Pushed %s: %f' % (self.node_name, msg.poses[0].position.x))
+            # rclpy.spin_until_future_complete(self, self.future)
     
 
     
