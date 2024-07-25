@@ -7,7 +7,7 @@
 
 - install ros humble
 ```bash
-sudo apt install -y ros-humble-desktop
+sudo apt install -y ros-humble-desktop 
 sudo apt install python3-colcon-common-extensions
 ```
 
@@ -34,6 +34,7 @@ fi
 - open a new terminal in dev_ws directory
 ```bash
 sudo apt install python3-rosdep
+sudo pip3 install transforms3d
 sudo rosdep init
 rosdep update
 rosdep install -i --from-path src --rosdistro humble -y
