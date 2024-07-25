@@ -112,5 +112,5 @@ def generate_launch_description():
         gazebo_center_spawn_bin,
         gazebo_left_spawn_bin,
         gazebo_right_spawn_bin,
-        ros2_aruco_detection,
+        # ros2_aruco_detection,
     ])
