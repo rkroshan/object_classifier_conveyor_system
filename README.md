@@ -1,3 +1,11 @@
+### Implementation of object classifier conveyor system in ROS2-Gazebo.
+
+<img src="https://github.com/rkroshan/object_classifier_conveyor_system/blob/main/media/object_classifier_conveyor_system.gif">
+<br>
+
+### system ros node graph
+<img src="https://github.com/rkroshan/object_classifier_conveyor_system/blob/main/media/object_classifier_conveyor_system.png">
+
 ## SETUP
 ### ON HOST SIDE (Ubuntu x86 22.04) and on KR260
 - mkdir -p dev_ws/src
@@ -23,6 +31,8 @@ source /usr/share/colcon_cd/function/colcon_cd-argcomplete.bash
 
 #colcon argcomplete
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+# http://10.0.0.1 is ubuntu host IP and 10.0.0.2 is KR260 IP
+export ROS_MASTER_URI=http://10.0.0.1:11311
 
 #source local bashrc
 # if [ !( ./ -ef ~ ) ]; then
