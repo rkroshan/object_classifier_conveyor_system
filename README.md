@@ -70,3 +70,8 @@ ros2 service call /CONVEYORPOWER conveyorbelt_msgs/srv/ConveyorBeltControl "{pow
 ```bash
 ros2 run ros2_conveyorbelt SpawnObject.py
 ```
+
+### DEMO
+[![Watch the video](https://github.com/rkroshan/object_classifier_conveyor_system/blob/main/media/demo.jpg)](https://www.youtube.com/watch?v=f5dbv8Ru_kM)
+
+
