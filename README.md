@@ -1,3 +1,11 @@
+### Implementation of object classifier conveyor system in ROS2-Gazebo.
+
+<img src="https://github.com/rkroshan/object_classifier_conveyor_system/blob/main/media/object_classifier_conveyor_system.gif">
+<br>
+
+### system ros node graph
+<img src="https://github.com/rkroshan/object_classifier_conveyor_system/blob/main/media/object_classifier_conveyor_system.png">
+
 ## SETUP
 - mkdir -p dev_ws/src
 - cd src
